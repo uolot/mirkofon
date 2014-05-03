@@ -11,7 +11,8 @@ SECRET_KEY = 'KIG5Phzi3r'
 
 def get_entries(api, tag_name):
     response = api.request('tag', 'entries', [tag_name], {'appkey': APP_KEY})
-    return response['items']
+    count = response['meta']['counters']['entries']
+    return response['items'], count
 
 
 def parse_entry(entry):
@@ -48,15 +49,16 @@ def get_tags():
 def get_links(api, tags):
     for tag_name in tags:
         entries = get_entries(api, tag_name)
-        ids = get_ids(entries)
+        ids = get_ids(entries[0])
+        count = entries[1]
         url = get_playlist_url(tag_name, ids)
-        yield {'tag': tag_name, 'url': url}
+        yield {'tag': tag_name, 'url': url, 'count': count}
 
 
 def generate_links_json():
     api = wykop.WykopAPI(APP_KEY, SECRET_KEY)
     tags = get_tags()
-    links = list(get_links(api, tags))
+    links = sorted(get_links(api, tags), key=lambda l: -l['count'])
     return json.dumps(links)
 
 
