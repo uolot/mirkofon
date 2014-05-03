@@ -1,13 +1,12 @@
+import datetime
+import json
 import re
 import wykop
 
 
 APP_KEY = 'Ldp7XVdKMq'
 SECRET_KEY = 'KIG5Phzi3r'
-URL_PREFIX = "http://www.youtube.com/watch_videos?video_ids="
 
-
-api = wykop.WykopAPI(APP_KEY, SECRET_KEY)
 
 
 def get_entries(api, tag_name):
@@ -34,8 +33,11 @@ def get_ids(entries):
             continue
 
 
-def get_playlist_url(ids):
-    return URL_PREFIX + ','.join(ids)
+def get_playlist_url(title, ids):
+    base_url = "http://www.youtube.com/watch_videos?"
+    ids = 'video_ids=' + ','.join(ids)
+    title = 'title=%23' + title
+    return ''.join([base_url, ids, '&', title])
 
 
 def get_tags():
@@ -43,8 +45,32 @@ def get_tags():
         return [l.strip() for l in f.readlines()]
 
 
-if __name__ == '__main__':
-    for tag_name in get_tags():
+def get_links(api, tags):
+    for tag_name in tags:
         entries = get_entries(api, tag_name)
         ids = get_ids(entries)
-        print tag_name, get_playlist_url(ids)
+        url = get_playlist_url(tag_name, ids)
+        yield {'tag': tag_name, 'url': url}
+
+
+def generate_links_json():
+    api = wykop.WykopAPI(APP_KEY, SECRET_KEY)
+    tags = get_tags()
+    links = list(get_links(api, tags))
+    return json.dumps(links)
+
+
+def get_time():
+    now = datetime.datetime.now()
+    return now.strftime("%Y-%m-%d %H:%M")
+
+
+if __name__ == '__main__':
+    with open('template.html') as f:
+        links = generate_links_json()
+        template = f.read()
+        time = get_time()
+        html = template.replace("{{links}}", links).replace("{{time}}", time)
+
+        with open('index.html', 'w') as f2:
+            f2.write(html)

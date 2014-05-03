@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Mirkofon - playlisty YT z tagów</title>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1-rc2/jquery.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.2/handlebars.js" type="text/javascript"></script>
+    </head>
+
+    <body>
+        <h1>Mirkofon</h1>
+        <small>Ostatnia aktualizacja: {{time}}</small>
+
+        <div id="links"></div>
+
+        <script id="entries" type="text/x-handlebars-templare">
+            <ul>
+                {{#each links}}
+                <li>
+                    <a href="{{url}}" target="_blank">#{{tag}}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </script>
+
+        <script>
+            var source = $('#entries').html();
+            var template = Handlebars.compile(source);
+
+            var links = {{links}};
+            var context = {links: links};
+            var html = template(context);
+
+            $('#links').html(html);
+        </script>
+
+    </body>
+</html>
