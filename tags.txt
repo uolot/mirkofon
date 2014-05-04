@@ -1,5 +1,6 @@
 90s
 chillout
+deepdubstep
 dnb
 dnbmotzno
 drumandbass
@@ -14,4 +15,5 @@ polskirap
 polskirock
 psytrance
 rap
+reggae
 rock
