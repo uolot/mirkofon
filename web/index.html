@@ -25,7 +25,7 @@
         </script>
 
         <script>
-            $.getJSON('/data.json')
+            $.getJSON('data.json')
             .success(function (response) {
                 var source = $('#template').html();
                 var template = Handlebars.compile(source);
