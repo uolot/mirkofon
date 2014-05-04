@@ -1,5 +1,6 @@
 90s
 chillout
+darkstep
 deepdubstep
 dnb
 dnbmotzno
@@ -21,4 +22,5 @@ rap
 reggae
 rock
 rnb
+techhouse
 trance
