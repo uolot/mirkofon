@@ -4,6 +4,7 @@ deepdubstep
 dnb
 dnbmotzno
 drumandbass
+edm
 goa
 hardrock
 hiphop
@@ -11,6 +12,7 @@ house
 liquiddnb
 kiedysbylemmlody
 mirkoelektronika
+muzykaelektroniczna
 muzyka
 polskirap
 polskirock
