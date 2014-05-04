@@ -1,6 +1,19 @@
 body {
     background-color: rgb(28, 28, 28);
     color: rgb(177, 177, 177);
+    padding: 1em;
 }
-a { color: rgb(204, 204, 204); }
-a:hover { color: rgb(255, 255, 255); }
+a {
+    color: rgb(204, 204, 204);
+    text-decoration: none;
+}
+a:hover {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}
+li {
+    line-height: 1.5;
+}
+.footer {
+    margin-top: 2em;
+}
