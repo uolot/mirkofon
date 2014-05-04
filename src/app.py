@@ -55,24 +55,26 @@ def get_links(api, tags):
         yield {'tag': tag_name, 'url': url, 'count': count}
 
 
-def generate_links_json():
-    api = wykop.WykopAPI(APP_KEY, SECRET_KEY)
-    tags = get_tags()
-    links = sorted(get_links(api, tags), key=lambda l: -l['count'])
-    return json.dumps(links)
-
-
 def get_time():
     now = datetime.datetime.now()
     return now.strftime("%Y-%m-%d %H:%M")
 
 
+def generate_response_json():
+    api = wykop.WykopAPI(APP_KEY, SECRET_KEY)
+
+    tags = get_tags()
+    links = sorted(get_links(api, tags), key=lambda l: -l['count'])
+    time = get_time()
+
+    data = {'meta': {'time': time},
+            'items': links}
+    return json.dumps(data)
+
+
 if __name__ == '__main__':
     with open('template.html') as f:
-        links = generate_links_json()
-        template = f.read()
-        time = get_time()
-        html = template.replace("{{links}}", links).replace("{{time}}", time)
+        data = generate_response_json()
 
-        with open('index.html', 'w') as f2:
-            f2.write(html)
+        with open('data.json', 'w') as f3:
+            f3.write(data)

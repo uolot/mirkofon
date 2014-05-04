@@ -4,4 +4,4 @@ lib
 local
 *.swp
 *.un~
-index.html
+data.json

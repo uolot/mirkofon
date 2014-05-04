@@ -9,11 +9,11 @@
 
     <body>
         <h1>Mirkofon</h1>
-        <small>Ostatnia aktualizacja: {{time}}</small>
+        <div id="content"></div>
 
-        <div id="links"></div>
+        <script id="template" type="text/x-handlebars-templare">
+            <small>Ostatnia aktualizacja: {{time}}</small>
 
-        <script id="entries" type="text/x-handlebars-templare">
             <ul>
                 {{#each links}}
                 <li>
@@ -24,14 +24,18 @@
         </script>
 
         <script>
-            var source = $('#entries').html();
-            var template = Handlebars.compile(source);
+            $.getJSON('/data.json')
+            .success(function (response) {
+                var source = $('#template').html();
+                var template = Handlebars.compile(source);
+                var context = {
+                    time: response.meta.time,
+                    links: response.items
+                }
+                var html = template(context);
 
-            var links = {{links}};
-            var context = {links: links};
-            var html = template(context);
-
-            $('#links').html(html);
+                $('#content').html(html);
+            })
         </script>
 
     </body>
