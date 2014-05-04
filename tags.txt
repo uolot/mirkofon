@@ -5,6 +5,7 @@ dnb
 dnbmotzno
 drumandbass
 goa
+hardrock
 hiphop
 house
 liquiddnb
@@ -17,3 +18,4 @@ psytrance
 rap
 reggae
 rock
+rnb
