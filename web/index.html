@@ -1,6 +1,8 @@
+<!doctype html>
 <html>
     <head>
         <title>Mirkofon - playlisty YT z tagów</title>
+        <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.4.2/pure-min.css">
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1-rc2/jquery.js" type="text/javascript"></script>
@@ -13,6 +15,12 @@
 
         <div id="content"></div>
 
+        <p class="footer">
+            <small>
+                autor: <a href="http://wykop.pl/ludzie/paffnucy/" target="_blank">@paffnucy</a>
+            </small>
+        </p>
+
         <script id="template" type="text/x-handlebars-templare">
             <small>Ostatnia aktualizacja: {{time}}</small>
 
@@ -23,12 +31,6 @@
                 </li>
                 {{/each}}
             </ul>
-
-            <p class="footer">
-                <small>
-                    autor: <a href="http://wykop.pl/ludzie/paffnucy/" target="_blank">@paffnucy</a>
-                </small>
-            </p>
         </script>
 
         <script>
