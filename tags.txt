@@ -19,3 +19,4 @@ rap
 reggae
 rock
 rnb
+trance
