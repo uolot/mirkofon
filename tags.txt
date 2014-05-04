@@ -3,6 +3,7 @@ chillout
 chillstep
 darkstep
 deepdubstep
+deephouse
 dnb
 dnbmotzno
 drumandbass
@@ -22,6 +23,7 @@ nowoscpolskirap
 poezjaspiewana
 polskirap
 polskirock
+progressivehouse
 psytrance
 rap
 reggae
