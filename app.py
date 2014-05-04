@@ -1,12 +1,12 @@
 import datetime
 import json
+import os
 import re
 import wykop
 
 
-APP_KEY = 'Ldp7XVdKMq'
-SECRET_KEY = 'KIG5Phzi3r'
-
+APP_KEY = os.environ.get('MIRKO_KEY')
+SECRET_KEY = os.environ.get('MIRKO_SECRET')
 
 
 def get_entries(api, tag_name):
