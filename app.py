@@ -64,7 +64,7 @@ def generate_response_json():
     api = wykop.WykopAPI(APP_KEY, SECRET_KEY)
 
     tags = get_tags()
-    links = sorted(get_links(api, tags), key=lambda l: -l['count'])
+    links = sorted(get_links(api, tags), key=lambda l: l['tag'])
     time = get_time()
 
     data = {'meta': {'time': time},
@@ -73,8 +73,7 @@ def generate_response_json():
 
 
 if __name__ == '__main__':
-    with open('template.html') as f:
-        data = generate_response_json()
+    data = generate_response_json()
 
-        with open('data.json', 'w') as f3:
-            f3.write(data)
+    with open('web/data.json', 'w') as json_file:
+        json_file.write(data)
