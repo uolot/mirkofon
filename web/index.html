@@ -7,7 +7,9 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1-rc2/jquery.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.2/handlebars.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.0/spin.min.js" type="text/javascript"></script>
         <script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
+        <script src="app.js"></script>
     </head>
 
     <body>
@@ -15,12 +17,6 @@
         <h4>automatyczna playlista YT<br>z 20 ostatnich wpisów pod tagiem</h4>
 
         <div id="content"></div>
-
-        <p class="footer">
-            <small>
-                autor: <a href="http://wykop.pl/ludzie/paffnucy/" target="_blank">@paffnucy</a>
-            </small>
-        </p>
 
         <script id="template" type="text/x-handlebars-templare">
             <small>Ostatnia aktualizacja: {{time}}</small>
@@ -32,38 +28,16 @@
                 </li>
                 {{/each}}
             </ul>
+
+            <p class="footer">
+                <small>
+                    autor: <a href="http://wykop.pl/ludzie/paffnucy/" target="_blank">@paffnucy</a>
+                </small>
+            </p>
         </script>
 
         <script>
-            $.getJSON('data.json')
-            .success(function (response) {
-                var source = $('#template').html();
-                var template = Handlebars.compile(source);
-                var context = {
-                    time: response.meta.time,
-                    links: response.items
-                }
-                var html = template(context);
-
-                $('#content').html(html);
-            })
-
-            Date.prototype.yyyymmdd = function() {
-               var yyyy = this.getFullYear().toString();
-               var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-               var dd  = this.getDate().toString();
-               return yyyy + (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]); // padding
-            };
-
-            $('#content').delegate('[data-tag]', 'click', function (e) {
-                var tag = $(e.target).data('tag');
-                var tagRef = new Firebase('https://vivid-fire-4385.firebaseio.com/tags/' + tag);
-                tagRef.transaction(function (current) { return current + 1; })
-
-                var ymd = (new Date()).yyyymmdd();
-                var countRef = new Firebase('https://vivid-fire-4385.firebaseio.com/counters/' + ymd);
-                countRef.transaction(function (current) { return current + 1; })
-            });
+            init();
         </script>
 
     </body>

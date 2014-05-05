@@ -7,4 +7,4 @@ TODO:
 [ ] wyświetlanie osadzonej playlisty bezpośrednio na stronie
 [ ] embedowanie playlist (sprawdzanie id listy z przekierowania YT)
     <iframe width="560" height="315" src="//www.youtube.com/embed/videoseries?list=TLFBOqrJ4T0TgfbpvVxrWvgz4r6DkEcvEo" frameborder="0" allowfullscreen></iframe>
-
+[ ] data najstarszego utworu na liście

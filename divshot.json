@@ -1,0 +1,7 @@
+{
+  "name": "mirkofon",
+  "root": "web/",
+  "clean_urls": true,
+  "cache_control": {},
+  "routes": {}
+}
