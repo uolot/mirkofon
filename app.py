@@ -1,6 +1,7 @@
 import datetime
 from itertools import cycle
 import json
+import logging
 import os
 import re
 import requests
@@ -102,18 +103,18 @@ def fetch_data():
 
 if __name__ == '__main__':
     if LOCAL:
-        print "Reading data from file"
+        logging.info("Reading data from file")
         with open('web/data.json') as f:
             data = f.read()
     else:
-        print "Fetching data from WykopAPI"
+        logging.info("Fetching data from WykopAPI")
         data = fetch_data()
 
     if USEFB:
-        print "Writing to Firebase"
+        logging.info("Writing to Firebase")
         url = FIREBASE_URL + 'data.json'
         response = requests.put(url, data)
 
-    print "Writing to file"
+    logging.info("Writing to file")
     with open('web/data.json', 'w') as json_file:
         json_file.write(data)
