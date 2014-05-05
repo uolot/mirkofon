@@ -3,5 +3,6 @@
   "root": "web/",
   "clean_urls": true,
   "cache_control": {},
-  "routes": {}
+  "routes": {},
+  "exclude": ["data.json"]
 }
