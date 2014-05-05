@@ -1,4 +1,5 @@
 var dataUrl = 'http://jsonp.jit.su/?url=http%3A%2F%2Ffreeshell.de%2F~walot%2Fweb%2Fdata.json';
+var fireUrl = 'https://vivid-fire-4385.firebaseio.com/';
 
 
 Date.prototype.yyyymmdd = function() {
@@ -35,29 +36,33 @@ var createSpinner = function (targetId) {
 
 
 var createTagsList = function (dataUrl) {
-    $.getJSON(dataUrl)
-    .success(function (response) {
+    var updateContent = function (data) {
         var source = $('#template').html();
         var template = Handlebars.compile(source);
         var context = {
-            time: response.meta.time,
-            links: response.items
+            time: data.meta.time,
+            links: data.items
         }
         var html = template(context);
 
         $('#content').html(html);
-    })
+    };
+
+    var dataRef = new Firebase(fireUrl + 'data/');
+    dataRef.once('value', function (snapshot) {
+        updateContent(snapshot.val());
+    });
 }
 
 
 var createEvents = function () {
     $('#content').delegate('[data-tag]', 'click', function (e) {
         var tag = $(e.target).data('tag');
-        var tagRef = new Firebase('https://vivid-fire-4385.firebaseio.com/tags/' + tag);
+        var tagRef = new Firebase(fireUrl + 'tags/' + tag);
         tagRef.transaction(function (current) { return current + 1; })
 
         var ymd = (new Date()).yyyymmdd();
-        var countRef = new Firebase('https://vivid-fire-4385.firebaseio.com/counters/' + ymd);
+        var countRef = new Firebase(fireUrl + 'counters/' + ymd);
         countRef.transaction(function (current) { return current + 1; })
     });
 }

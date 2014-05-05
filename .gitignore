@@ -5,3 +5,4 @@ local
 *.swp
 *.un~
 data.json
+run

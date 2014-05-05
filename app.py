@@ -1,16 +1,44 @@
 import datetime
+from itertools import cycle
 import json
 import os
 import re
+import requests
 import wykop
 
 
-APP_KEY = os.environ.get('MIRKO_KEY')
-SECRET_KEY = os.environ.get('MIRKO_SECRET')
+FIREBASE_URL = os.environ.get('FIREBASE_URL')
+WYKOPAPI_KEYS = os.environ.get('WYKOPAPI_KEYS').split(',')
 
 
-def get_entries(api, tag_name):
-    response = api.request('tag', 'entries', [tag_name], {'appkey': APP_KEY})
+LOCAL = os.environ.get('LOCAL', 0)
+USEFB = os.environ.get('USEFB', 1)
+
+
+class WykopApiClient:
+
+    def __init__(self, key_pairs):
+        keys = [pair.split(':') for pair in key_pairs]
+        self.key_iter = cycle(keys)
+        self.next_api()
+
+    def next_api(self):
+        keys = self.key_iter.next()
+        self.app_key = keys[0]
+        self.api = wykop.WykopAPI(*keys)
+
+    def request(self, resource, method, method_params):
+        api_params = {'appkey': self.app_key}
+        request_params = (resource, method, method_params, api_params)
+        try:
+            return self.api.request(*request_params)
+        except wykop.WykopAPIError:
+            self.next_api()
+            return self.api.request(*request_params)
+
+
+def get_entries(api_client, tag_name):
+    response = api_client.request('tag', 'entries', [tag_name])
     count = response['meta']['counters']['entries']
     return response['items'], count
 
@@ -46,9 +74,9 @@ def get_tags():
         return [l.strip() for l in f.readlines()]
 
 
-def get_links(api, tags):
+def get_links(api_client, tags):
     for tag_name in tags:
-        entries = get_entries(api, tag_name)
+        entries = get_entries(api_client, tag_name)
         ids = get_ids(entries[0])
         count = entries[1]
         url = get_playlist_url(tag_name, ids)
@@ -60,11 +88,11 @@ def get_time():
     return now.strftime("%Y-%m-%d %H:%M")
 
 
-def generate_response_json():
-    api = wykop.WykopAPI(APP_KEY, SECRET_KEY)
+def fetch_data():
+    api_client = WykopApiClient(WYKOPAPI_KEYS)
 
     tags = get_tags()
-    links = sorted(get_links(api, tags), key=lambda l: l['tag'])
+    links = sorted(get_links(api_client, tags), key=lambda l: l['tag'])
     time = get_time()
 
     data = {'meta': {'time': time},
@@ -73,7 +101,19 @@ def generate_response_json():
 
 
 if __name__ == '__main__':
-    data = generate_response_json()
+    if LOCAL:
+        print "Reading data from file"
+        with open('web/data.json') as f:
+            data = f.read()
+    else:
+        print "Fetching data from WykopAPI"
+        data = fetch_data()
 
+    if USEFB:
+        print "Writing to Firebase"
+        url = FIREBASE_URL + 'data.json'
+        response = requests.put(url, data)
+
+    print "Writing to file"
     with open('web/data.json', 'w') as json_file:
         json_file.write(data)
