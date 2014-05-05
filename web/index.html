@@ -56,8 +56,6 @@
             };
 
             $('#content').delegate('[data-tag]', 'click', function (e) {
-                e.preventDefault();
-
                 var tag = $(e.target).data('tag');
                 var tagRef = new Firebase('https://vivid-fire-4385.firebaseio.com/tags/' + tag);
                 tagRef.transaction(function (current) { return current + 1; })
