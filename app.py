@@ -33,7 +33,8 @@ class WykopApiClient:
         request_params = (resource, method, method_params, api_params)
         try:
             return self.api.request(*request_params)
-        except wykop.WykopAPIError:
+        except wykop.WykopAPIError as e:
+            logging.error(e)
             self.next_api()
             return self.api.request(*request_params)
 
