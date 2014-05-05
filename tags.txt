@@ -18,6 +18,7 @@ instrumental
 kiedysbylemmlody
 liquiddnb
 metal
+minimal
 mirkoelektronika
 muzyka
 muzykaelektroniczna
@@ -33,4 +34,6 @@ reggae
 rnb
 rock
 techhouse
+techno
 trance
+trap
