@@ -3,14 +3,31 @@ body {
     color: rgb(177, 177, 177);
     padding: 1em;
 }
+
 a {
     color: rgb(204, 204, 204);
     text-decoration: none;
 }
 a:hover {
     color: rgb(255, 255, 255);
-    text-decoration: underline;
 }
-li {
-    line-height: 1.5;
+
+.taglist {
+    -webkit-padding-start: 0;
+}
+.taglist__tag {
+    display: inline-block;
+    margin: 0.3em;
+    border: 1px solid #777;
+}
+.taglist__tag:hover {
+    background-color: #333;
+}
+.taglist__tag__link {
+    display: block;
+    padding: 0.6em 0.8em;
+}
+.taglist__tag__link:before {
+    content: '#';
+    color: #777;
 }

@@ -21,10 +21,10 @@
         <script id="template" type="text/x-handlebars-templare">
             <small>Ostatnia aktualizacja: {{time}}</small>
 
-            <ul>
+            <ul class="taglist">
                 {{#each links}}
-                <li>
-                <a href="{{url}}" target="_blank" data-tag="{{tag}}">#{{tag}}</a>
+                <li class="taglist__tag">
+                <a href="{{url}}" target="_blank" class="taglist__tag__link" data-tag="{{tag}}">{{tag}}</a>
                 </li>
                 {{/each}}
             </ul>
