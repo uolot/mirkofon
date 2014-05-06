@@ -2,6 +2,7 @@ body {
     background-color: rgb(28, 28, 28);
     color: rgb(177, 177, 177);
     padding: 1em;
+    font-size: 21px;
 }
 
 a {
@@ -12,22 +13,55 @@ a:hover {
     color: rgb(255, 255, 255);
 }
 
+.header {
+    margin-bottom: 0;
+}
+.header--sub {
+    margin: 0;
+    padding-bottom: 1em;
+    font-size: 0.8em;
+    font-weight: normal;
+    border-bottom: 1px solid #333;
+}
+
+.last-update {
+    font-size: 0.6em;
+    margin: 1em;
+    text-align: right;
+    color: #555;
+}
+
 .taglist {
     -webkit-padding-start: 0;
+    padding: 2em 0;
+
+    -webkit-column-width: 11em;
+    -moz-column-width: 11em;
+    column-width: 11em;
+
+    -webkit-column-gap: 1em;
+    -moz-column-gap: 1em;
+    column-gap: 1em;
 }
+
 .taglist__tag {
-    display: inline-block;
-    margin: 0.3em;
-    border: 1px solid #777;
+    display: block;
+    margin-bottom: 0.6em;
+    font-size: 0.9em;
+    text-align: center;
 }
 .taglist__tag:hover {
-    background-color: #333;
 }
+
 .taglist__tag__link {
-    display: block;
-    padding: 0.6em 0.8em;
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    border: 1px solid #333;
 }
 .taglist__tag__link:before {
     content: '#';
-    color: #777;
+    color: #555;
+}
+.taglist__tag__link:hover {
+    background-color: #333;
 }
