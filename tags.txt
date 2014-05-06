@@ -8,6 +8,7 @@ deephouse
 discopolo
 dnb
 dnbmotzno
+downtempo
 drumandbass
 edm
 goa
@@ -37,3 +38,4 @@ techhouse
 techno
 trance
 trap
+triphop
