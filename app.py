@@ -16,6 +16,9 @@ LOCAL = os.environ.get('LOCAL', 0)
 USEFB = os.environ.get('USEFB', 1)
 
 
+logging.basicConfig(filename='mirkofon.log', level=logging.DEBUG)
+
+
 class WykopApiClient:
 
     def __init__(self, key_pairs):
