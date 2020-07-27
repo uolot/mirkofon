@@ -52,8 +52,7 @@ def parse_entry(entry):
     url = entry['embed']['url']
 
     if 'youtube.com' in url.lower():
-        video_id = re.findall(r'\?v=(.{11})', url)[0]
-        return video_id
+        return re.findall(r'\?v=(.{11})', url)[0]
 
 
 def get_ids(entries):
