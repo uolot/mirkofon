@@ -1,2 +1,2 @@
 wykop-sdk==0.2.2
-requests==2.26.0
+requests==2.27.0
